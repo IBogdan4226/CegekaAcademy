@@ -26,7 +26,7 @@
             }
             else
             {
-                Console.WriteLine("Nup!");
+                Console.WriteLine("Invalid value!");
             }
         }
         public List<Person> getDonors()

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Bogdan\\Desktop\\Cegeka\\Lesson1-HW\\PetShelterDemo\\PetShelterDemo.DAL\\PetShelterDemo.DAL.csproj": {}
+    "C:\\Users\\Bogdan\\Desktop\\Cegeka\\CegekaAcademy\\Tema 01 - C# Advanced\\PetShelterDemo\\PetShelterDemo.DAL\\PetShelterDemo.DAL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Bogdan\\Desktop\\Cegeka\\Lesson1-HW\\PetShelterDemo\\PetShelterDemo.DAL\\PetShelterDemo.DAL.csproj": {
+    "C:\\Users\\Bogdan\\Desktop\\Cegeka\\CegekaAcademy\\Tema 01 - C# Advanced\\PetShelterDemo\\PetShelterDemo.DAL\\PetShelterDemo.DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Bogdan\\Desktop\\Cegeka\\Lesson1-HW\\PetShelterDemo\\PetShelterDemo.DAL\\PetShelterDemo.DAL.csproj",
+        "projectUniqueName": "C:\\Users\\Bogdan\\Desktop\\Cegeka\\CegekaAcademy\\Tema 01 - C# Advanced\\PetShelterDemo\\PetShelterDemo.DAL\\PetShelterDemo.DAL.csproj",
         "projectName": "PetShelterDemo.DAL",
-        "projectPath": "C:\\Users\\Bogdan\\Desktop\\Cegeka\\Lesson1-HW\\PetShelterDemo\\PetShelterDemo.DAL\\PetShelterDemo.DAL.csproj",
+        "projectPath": "C:\\Users\\Bogdan\\Desktop\\Cegeka\\CegekaAcademy\\Tema 01 - C# Advanced\\PetShelterDemo\\PetShelterDemo.DAL\\PetShelterDemo.DAL.csproj",
         "packagesPath": "C:\\Users\\Bogdan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Bogdan\\Desktop\\Cegeka\\Lesson1-HW\\PetShelterDemo\\PetShelterDemo.DAL\\obj\\",
+        "outputPath": "C:\\Users\\Bogdan\\Desktop\\Cegeka\\CegekaAcademy\\Tema 01 - C# Advanced\\PetShelterDemo\\PetShelterDemo.DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Bogdan\\AppData\\Roaming\\NuGet\\NuGet.Config",

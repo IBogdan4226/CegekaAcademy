@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "N1aACY9Q4lLCqzZtkPOtgH+QBc4yZtIPAh7D0HMSYX35XF3e4h2EN1yhG6UgWXilXkgtkKy+nVwGjp6LZUtE6w==",
+  "dgSpecHash": "T4uWVhZ8sJ0Qs49oGsAGobZYte+TilrC2RlJdjt4mCbPGA82fB3bJ+/5WDzY0HwIW7ISUQpair9lbNP15l6CRw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Bogdan\\Desktop\\Cegeka\\Lesson1-HW\\PetShelterDemo\\PetShelterDemo.Domain\\PetShelterDemo.Domain.csproj",
+  "projectFilePath": "C:\\Users\\Bogdan\\Desktop\\Cegeka\\CegekaAcademy\\Tema 01 - C# Advanced\\PetShelterDemo\\PetShelterDemo.Domain\\PetShelterDemo.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
