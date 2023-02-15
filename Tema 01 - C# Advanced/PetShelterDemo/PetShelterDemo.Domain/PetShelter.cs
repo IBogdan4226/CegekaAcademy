@@ -35,12 +35,12 @@ public class PetShelter
     public void Donate(Person donor)
     {
         donorRegistry.Register(donor);
-        var currency = donations.GetCurrencyChoice();
-        var amount = donations.GetDonationAmount();
+        var currency = Donation.GetCurrencyChoice();
+        var amount = Donation.GetDonationAmount();
         donations.AddDonation(currency, amount);
     }
 
-    
+    #region HOMEWORK Tema 01 - C# Advanced
     public int GetTotalDonationsInRON()
     {
         return (int) donations.CalculateValue();
@@ -55,9 +55,10 @@ public class PetShelter
     {
         fundraiserRegistry.Register(fundraiser);
     }
-    public void Donate(Person doner, double amount, Fundraiser fundraiser)
+    public void Donate(Person doner, string currency, double amount, Fundraiser fundraiser)
     {
-        fundraiser.donateMoney(doner, amount);
+        
+        fundraiser.donateMoney(doner, amount,currency);
     }
     public  IReadOnlyList<Fundraiser> GetAllFundraisers()
     {
@@ -67,4 +68,5 @@ public class PetShelter
     {
         return fundraiserRegistry.GetByName(name).Result;
     }
+    #endregion
 }

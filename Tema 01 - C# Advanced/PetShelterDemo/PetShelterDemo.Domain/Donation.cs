@@ -2,7 +2,7 @@
 {
     public class Donation
     {
-        private readonly Dictionary<string, double> _currencyRates = new Dictionary<string, double>
+        private static readonly Dictionary<string, double> _currencyRates = new()
         {
             { "RON", 1.0f },
             { "EUR", 4.90f },
@@ -46,7 +46,7 @@
             }
         }
 
-        public  string GetCurrencyChoice()
+        public static string GetCurrencyChoice()
         {
             Console.WriteLine("Please select a currency option:");
             int i = 1;
@@ -70,7 +70,7 @@
             return _currencyRates.Keys.ElementAt(choice - 1);
         }
 
-        public double GetDonationAmount()
+        public static double GetDonationAmount()
         {
             double amount;
             while (true)

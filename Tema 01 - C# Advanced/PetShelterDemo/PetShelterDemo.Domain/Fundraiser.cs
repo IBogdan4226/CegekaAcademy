@@ -5,7 +5,7 @@
         public string Name { get; }
         public string Description { get;}
         public double Target { get; }
-        public double MoneyRaised { get; set;}
+        public Donation MoneyRaised { get; set;}
         private List<Person> DonorsList { get;}
 
         public Fundraiser(string name, string description, double target)
@@ -13,15 +13,15 @@
             Name = name;
             Description = description;
             Target = target;
-            MoneyRaised = 0;
+            MoneyRaised = new Donation() ;
             DonorsList = new List<Person>();
         }
 
-        public void donateMoney(Person person,double amount)
+        public void donateMoney(Person person,double amount,string currency)
         {
             if (amount > 0 &&person!=null)
             {
-                MoneyRaised += amount;
+                MoneyRaised.AddDonation(currency, amount);
                 DonorsList.Add(person);
             }
             else

@@ -101,14 +101,14 @@ void SeePetDetailsByName(string name)
 }
 
 
-///////////////HOMEWORK//////////
+#region HOMEWORK Tema 01 - C# Advanced
 void RegisterFundraiser()
 {
     var name = ReadString("Name?");
     var description = ReadString("Description?");
-    var target = ReadDouble("Target donation");
+    var target = ReadDouble("Target donation in RON? Keep in mind that people will be able to donate in other currencies.");
 
-    var fundraiser = new Fundraiser(name, description,target);
+    var fundraiser = new Fundraiser(name, description, target);
     shelter.RegisterFundraiser(fundraiser);
 }
 
@@ -122,7 +122,7 @@ void ObserveFundraisers(Action<string> function)
     var fundraisersOptions = new Dictionary<string, Action>();
     foreach (var f in fundraisers)
     {
-        fundraisersOptions.Add(f.Name + " -- " + f.MoneyRaised + "/" + f.Target, () => function(f.Name));
+        fundraisersOptions.Add(f.Name + " -- " + f.MoneyRaised.CalculateValue().ToString("F2") + " Ron/" + f.Target+" Ron", () => function(f.Name));
     }
     fundraisersOptions.Add("Go back.", () => { });
 
@@ -140,8 +140,9 @@ void DonateToFundraiser(string fundraiserName)
     var id = ReadString();
     var person = new Person(name, id);
 
-    var amount = ReadDouble("How much would you like to donate?");
-    shelter.Donate(person, amount, fundraiser);
+    var currency = Donation.GetCurrencyChoice();
+    var amount = Donation.GetDonationAmount();
+    shelter.Donate(person, currency, amount, fundraiser);
 
 }
 
@@ -152,7 +153,7 @@ void ShowDetailsOfFundraiser(String name)
 
     Console.WriteLine(fundraiser.Name);
     Console.WriteLine(fundraiser.Description);
-    Console.WriteLine($"Out of the ${fundraiser.Target} we managed to get ${fundraiser.MoneyRaised}");
+    Console.WriteLine($"Out of the {fundraiser.Target} RON we managed to get {fundraiser.MoneyRaised.CalculateValue():F2} RON");
     Console.WriteLine("Special thanks to: ");
     foreach (var donor in fundraiser.getDonors())
     {
@@ -161,7 +162,9 @@ void ShowDetailsOfFundraiser(String name)
     Console.WriteLine("");
 
 }
-///////////////HOMEWORK//////////
+#endregion
+
+
 void BreakDatabaseConnection()
 {
     Database.ConnectionIsDown = true;
@@ -212,7 +215,7 @@ int ReadInteger(int maxValue = int.MaxValue, string? header = null)
     return userInput;
 }
 
-double ReadDouble(string header,double maxValue = double.MaxValue )
+double ReadDouble(string header, double maxValue = double.MaxValue)
 {
     if (header != null) Console.WriteLine(header);
 
