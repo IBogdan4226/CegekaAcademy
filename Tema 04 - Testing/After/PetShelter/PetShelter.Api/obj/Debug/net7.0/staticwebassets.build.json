@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "lB8Rsr75CGfO9Y7semnltWxhusrrtx9LRZtEck+eM2w=",
+  "Source": "PetShelter.Api",
+  "BasePath": "_content/PetShelter.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

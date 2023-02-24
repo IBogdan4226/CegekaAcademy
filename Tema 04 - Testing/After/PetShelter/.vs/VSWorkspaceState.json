@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\PetShelter.BusinessLayer",
+    "\\PetShelter.BusinessLayer.Tests",
+    "\\PetShelter.BusinessLayer.Tests\\bin",
+    "\\PetShelter.DataAccessLayer"
+  ],
+  "SelectedNode": "\\PetShelter.BusinessLayer.Tests\\obj",
+  "PreviewInSolutionExplorer": false
+}
