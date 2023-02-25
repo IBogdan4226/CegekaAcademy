@@ -30,6 +30,7 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class, IE
 
     public async Task<T?> GetById(int id)
     {
-        return await _context.Set<T>().SingleOrDefaultAsync(x => x.Id == id);
+        var item= await _context.Set<T>().SingleOrDefaultAsync(x => x.Id == id);
+        return item;
     }
 }

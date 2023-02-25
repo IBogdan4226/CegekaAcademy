@@ -16,7 +16,9 @@ namespace PetShelter.BusinessLayer.Tests
         private IIdNumberValidator _idNumberValidator;
         public IntegrationTests()
         {
-            _petShelterContext = new PetShelterContext();
+            var dbContextOptionsBuilder = new DbContextOptionsBuilder<PetShelterContext>();
+            dbContextOptionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=PetShelter2;Trusted_Connection=True;TrustServerCertificate=True;");
+            _petShelterContext = new PetShelterContext(dbContextOptionsBuilder.Options);
             _petRepositorySut = new PetRepository(_petShelterContext);
             _donationRepository= new DonationRepository(_petShelterContext);
             _idNumberValidator = new IdNumberValidator(new HttpClient());

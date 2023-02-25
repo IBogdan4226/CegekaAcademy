@@ -14,15 +14,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-//builder.Services.AddDbContext<PetShelterContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("PetShelterConnection"),
-//        providerOptions =>
-//        {
-//            providerOptions.MigrationsAssembly("PetShelter.DataAccessLayer");
-//            providerOptions.EnableRetryOnFailure();
-//        }));
+builder.Services.AddDbContext<PetShelterContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PetShelterConnection"),
+        providerOptions =>
+        {
+            providerOptions.MigrationsAssembly("PetShelter.DataAccessLayer");
+            providerOptions.EnableRetryOnFailure();
+        }));
 //Unable to create an object of type 'PetShelterContext'. For the different patterns supported at design time, see https://go.microsoft.com/fwlink/?linkid=851728.
-builder.Services.AddDbContext<PetShelterContext>();
+//builder.Services.AddDbContext<PetShelterContext>();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IIdNumberValidator, IdNumberValidator>();
 builder.Services.AddScoped<IPetService, PetService>();

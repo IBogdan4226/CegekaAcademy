@@ -6,14 +6,10 @@ namespace PetShelter.DataAccessLayer;
 
 public class PetShelterContext : DbContext
 {
-    //public PetShelterContext(DbContextOptions options) : base(options)
-    //{
-    //}
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public PetShelterContext(DbContextOptions options) : base(options)
     {
-        optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=PetShelter;Trusted_Connection=True;TrustServerCertificate=True;");
     }
+
     public DbSet<Pet> Pets { get; set; }
     public DbSet<Person> Persons { get; set; }
     public DbSet<Donation> Donations { get; set; }
