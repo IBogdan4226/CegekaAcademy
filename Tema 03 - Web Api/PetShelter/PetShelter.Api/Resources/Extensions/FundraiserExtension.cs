@@ -18,5 +18,19 @@ public static class FundraiserExtension
         return domainModel;
     }
 
+    public static Resources.Fundraiser AsResource(this Domain.Fundraiser fundraiser)
+    {
+        var resourceModel = new Resources.Fundraiser();
+        resourceModel.Id = fundraiser.Id;
+        resourceModel.Name = fundraiser.Name;
+        resourceModel.CreationDate = fundraiser.CreationDate;
+        resourceModel.DueDate = fundraiser.DueDate;
+        resourceModel.Target = fundraiser.Target;
+        resourceModel.CurrentlyRaised= fundraiser.CurrentlyRaised;
+        resourceModel.Status= fundraiser.Status;
+
+        return resourceModel;
+    }
+
 
 }

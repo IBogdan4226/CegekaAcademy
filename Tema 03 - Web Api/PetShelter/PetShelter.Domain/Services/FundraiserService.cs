@@ -46,6 +46,7 @@ namespace PetShelter.Domain.Services
         public async Task DonateToFundraiser(int fundraiserId, Donation donation)
         {
             var person = await _personRepository.GetOrAddPersonAsync(donation.Donor.FromDomainModel());
+            donation.DonorId = person.Id;
             var fundraiser = await _fundraiserRepository.GetById(fundraiserId);
             fundraiser.CurrentlyRaised += donation.Amount;
             if (fundraiser.CurrentlyRaised > fundraiser.Target)
@@ -53,7 +54,7 @@ namespace PetShelter.Domain.Services
                 fundraiser.Status = FundraiserStatus.Closed.ToString();
             }
             await _fundraiserRepository.Update(fundraiser);
-            await _donationRepository.Add(new DataAccessLayer.Models.Donation(donation.Amount,donation.DonorId,fundraiserId));
+            await _donationRepository.Add(new DataAccessLayer.Models.Donation(donation.Amount, donation.DonorId,fundraiserId));
         }
 
         public async  Task<IReadOnlyCollection<Fundraiser>> GetAllFundraisers()

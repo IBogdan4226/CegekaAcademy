@@ -23,7 +23,7 @@ namespace PetShelter.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IReadOnlyList<Resources.Fundraiser>>> GetFundraisers()
         {
-            var data = await this._fundraiserService.GetAllFundraisers();
+            var data = (await this._fundraiserService.GetAllFundraisers()).Select(p => p.AsResource());
             return this.Ok(data);
         }
 
@@ -44,9 +44,9 @@ namespace PetShelter.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> DonateToFundraiser(int id,[FromBody] Donation donation)
+        public async Task<IActionResult> DonateToFundraiser(int id,[FromBody] DonateRequiest donation)
         {
-            await _fundraiserService.DonateToFundraiser(id,donation);
+            await _fundraiserService.DonateToFundraiser(id,donation.AsDomainModel());
             return Ok();
         }
 
