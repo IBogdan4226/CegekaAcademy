@@ -53,7 +53,7 @@ fundraiserService.donateToFundraiser(2,donationForFundraiser).then(response=>{
     : console.log('Eroare la donatie');
 })
 
-fundraiserService.deleteFundraiser(5).then(response=>{
+fundraiserService.deleteFundraiser(6).then(response=>{
     response? console.log(`Stergere reusita`)
     : console.log('Eroare la stergere');
 })
