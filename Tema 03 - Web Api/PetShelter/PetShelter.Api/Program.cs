@@ -12,6 +12,17 @@ using PetShelter.Domain.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+
+        });
+});
 
 builder.Services.AddDbContext<PetShelterContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("PetShelterConnection"),
@@ -59,5 +70,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors();
 
 app.Run();
