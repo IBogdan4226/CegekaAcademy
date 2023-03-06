@@ -4,6 +4,7 @@ import { Button, Card, CardActions, CardContent, Tooltip, Typography } from "@mu
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 import Donation from './../Models/Donation';
 import DonateModal from './DonateModal';
+import { useEffect } from 'react';
 export interface IFundraiserProps {
     fundraiser: Fundraiser;
     handleSubmit: (id: number, donation: Donation) => Promise<boolean>;
@@ -11,6 +12,15 @@ export interface IFundraiserProps {
 }
 const FundraiserCard = (props: IFundraiserProps) => {
     const [open, setOpen] = useState(false);
+    const [canDonate, setCanDonate] = useState(true);
+
+    useEffect(() => {
+        if (props.fundraiser.status === FundraiserStatus.Closed
+            ||
+            (new Date(props.fundraiser.dueDate).getTime()) - Date.now() < 0) {
+            setCanDonate(false);
+        }
+    })
     const handleDonate = () => {
         setOpen(true);
     }
@@ -24,7 +34,7 @@ const FundraiserCard = (props: IFundraiserProps) => {
                         {props.fundraiser.name} &nbsp;
                         {
 
-                            props.fundraiser.status === FundraiserStatus.Closed &&
+                            canDonate &&
                             <Tooltip title={`${props.fundraiser.name} is closed.`}><Diversity1Icon></Diversity1Icon></Tooltip>
                         }
                     </Typography>
@@ -41,8 +51,8 @@ const FundraiserCard = (props: IFundraiserProps) => {
                 <CardActions sx={{ float: "right" }}>
                     <Button size="small">Learn More</Button>
                     {
-                        props.fundraiser.status === FundraiserStatus.Active
-                        && <Button size="small" color='primary' variant="contained" onClick={handleDonate}>Donate</Button>
+                        canDonate &&
+                        <Button size="small" color='primary' variant="contained" onClick={handleDonate}>Donate</Button>
                     }
                 </CardActions>
             </Card>
