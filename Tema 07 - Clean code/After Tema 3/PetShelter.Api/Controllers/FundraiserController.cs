@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PetShelter.Api.Resources;
 using PetShelter.Api.Resources.Extensions;
 using PetShelter.Domain;
+using PetShelter.Domain.Exceptions;
 using PetShelter.Domain.Services;
 
 namespace PetShelter.Api.Controllers
@@ -27,7 +28,7 @@ namespace PetShelter.Api.Controllers
             return this.Ok(data);
         }
 
-       
+
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -42,11 +43,19 @@ namespace PetShelter.Api.Controllers
 
         [HttpPost("{id}/donate")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> DonateToFundraiser(int id,[FromBody] DonateRequiest donation)
+        public async Task<IActionResult> DonateToFundraiser(int id, [FromBody] DonateRequiest donation)
         {
-            await _fundraiserService.DonateToFundraiser(id,donation.AsDomainModel());
+            try
+            {
+                await _fundraiserService.DonateToFundraiser(id, donation.AsDomainModel());
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound();
+            }
             return Ok();
         }
 
@@ -62,18 +71,7 @@ namespace PetShelter.Api.Controllers
             {
                 return this.NotFound();
             }
-            return this.Ok(new FundraiserDetailed
-            {
-                Id = fundraiser.Id,
-                Name = fundraiser.Name,
-                DueDate = fundraiser.DueDate,
-                CreationDate = fundraiser.CreationDate,
-                CurrentlyRaised = fundraiser.CurrentlyRaised,
-                Target = fundraiser.Target,
-                Owner = fundraiser.Owner.AsResource(),
-                Status = fundraiser.Status,
-                Donors = fundraiser.Donations.Select(p => p.Donor.AsResource()).ToList(),
-            });
+            return this.Ok(fundraiser.AsDetailedResource());
         }
 
         [HttpDelete("{id}")]

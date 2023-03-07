@@ -10,7 +10,7 @@ public interface IFundraiserService
 {
     Task DeleteFundraiserAsync(int fundraiserId);
 
-    Task<Fundraiser> GetFundraiser(int fundraiserId);
+    Task<Fundraiser?> GetFundraiser(int fundraiserId);
 
     Task<IReadOnlyCollection<Fundraiser>> GetAllFundraisers();
 

@@ -47,13 +47,12 @@ namespace PetShelter.Domain.Services
         {
             var person = await _personRepository.GetOrAddPersonAsync(donation.Donor.FromDomainModel());
             donation.DonorId = person.Id;
-            var fundraiser = await _fundraiserRepository.GetById(fundraiserId);
-            fundraiser.CurrentlyRaised += donation.Amount;
-            if (fundraiser.CurrentlyRaised > fundraiser.Target)
+
+            var fundation=await _fundraiserRepository.DonateToFundraiser(fundraiserId, donation.Amount);
+            if(fundation == null)
             {
-                fundraiser.Status = FundraiserStatus.Closed.ToString();
+                throw new NotFoundException("Foundation not found");
             }
-            await _fundraiserRepository.Update(fundraiser);
             await _donationRepository.Add(new DataAccessLayer.Models.Donation(donation.Amount, donation.DonorId,fundraiserId));
         }
 
@@ -64,7 +63,7 @@ namespace PetShelter.Domain.Services
                 .ToImmutableArray();
         }
 
-        public async Task<Fundraiser> GetFundraiser(int fundraiserId)
+        public async Task<Fundraiser?> GetFundraiser(int fundraiserId)
         {
             var fundraiser = await _fundraiserRepository.GetById(fundraiserId);
             if (fundraiser == null)
