@@ -9,13 +9,7 @@ public class FundraiserRepository:BaseRepository<Fundraiser>, IFundraiserReposit
 
     public async Task<decimal> GetFundraiserMoneyById(int id)
     {
-        var fundraiser = await _context.Fundraisers.FirstOrDefaultAsync(p => p.Id == id);
-        if (fundraiser == null)
-        {
-            throw new ArgumentException($"Fundraiser with id {id} not found.");
-        }
-
-        decimal totalDonation = fundraiser.Donations?.Sum(d => d.Amount) ?? 0;
+        decimal totalDonation = await _context.Fundraisers.Where(f => f.Id == id).SelectMany(f => f.Donations).SumAsync(d => d.Amount);
         return totalDonation;
     }
 

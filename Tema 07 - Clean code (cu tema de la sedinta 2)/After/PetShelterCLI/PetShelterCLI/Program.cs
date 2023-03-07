@@ -12,9 +12,6 @@
 
 
 using PetShelter.DataAccessLayer.Models;
-using PetShelterCLI.PetShelterCLI;
-using PetShelterCLI.PetShelterCLI.Domain;
-
 var shelter = new PetShelterCLI.PetShelterCLI.Domain.PetShelter();
 
 Console.WriteLine("Hello, Welcome the the Pet Shelter!");
@@ -50,9 +47,7 @@ void RegisterPet()
 {
     var name = ReadString("Name?");
     var description = ReadString("Description?");
-
-    var pet = new Pet(name,description);
-
+    var pet = new Pet(name, description);
     shelter.RegisterPet(pet);
 }
 
@@ -64,14 +59,14 @@ void Donate()
     Console.WriteLine("What's your personal Id? (No, I don't know what GDPR is. Why do you ask?)");
     var id = ReadString();
     var person = new Person(name, id);
-    var amount = ReadDouble("How much would you like to donate?");
-    shelter.Donate((decimal)amount,person);
+    var amount = ReadDecimal("How much would you like to donate?");
+    shelter.Donate(amount, person);
 }
 
 void RegisterFundraiser()
 {
     var name = ReadString("Name?");
-    var target = ReadDouble("Target donation?");
+    var target = ReadDecimal("Target donation?");
 
     var fundraiser = new Fundraiser(name, (decimal)target);
     shelter.RegisterFundraiser(fundraiser);
@@ -79,15 +74,12 @@ void RegisterFundraiser()
 
 void SeePets()
 {
-
     var pets = shelter.GetAllPets();
-
     var petOptions = new Dictionary<string, Action>();
     foreach (var pet in pets)
     {
         petOptions.Add(pet.Name, () => SeePetDetailsByName(pet.Name));
     }
-
     PresentOptions("We got..", petOptions);
 }
 
@@ -134,8 +126,8 @@ void DonateToFundraiser(int fundraiserId)
     Console.WriteLine("What's your personal Id? (No, I don't know what GDPR is. Why do you ask?)");
     var id = ReadString();
     var person = new Person(name, id);
-    var amount = ReadDouble("How much would you like to donate?");
-    shelter.Donate((decimal)amount, person, fundraiserId);
+    var amount = ReadDecimal("How much would you like to donate?");
+    shelter.Donate(amount, person, fundraiserId);
 
 }
 
@@ -185,16 +177,16 @@ int ReadInteger(int maxValue = int.MaxValue, string? header = null)
     return userInput;
 }
 
-double ReadDouble(string header, double maxValue = double.MaxValue)
+decimal ReadDecimal(string header, decimal maxValue = decimal.MaxValue)
 {
     if (header != null) Console.WriteLine(header);
 
-    var isUserInputValid = double.TryParse(Console.ReadLine(), out var userInput);
+    var isUserInputValid = decimal.TryParse(Console.ReadLine(), out var userInput);
     if (!isUserInputValid || userInput > maxValue)
     {
         Console.WriteLine("Invalid input");
         Console.WriteLine("");
-        return ReadDouble(header);
+        return ReadDecimal(header);
     }
 
     Console.WriteLine("");

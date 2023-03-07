@@ -57,7 +57,7 @@ public class PetShelter
 
     public IReadOnlyList<Person> GetAllDonors()
     {
-        return (IReadOnlyList<Person>)donationRepository.GetAllDonors().Result;
+        return donationRepository.GetAllDonors().Result.ToList();
     }
 
     public void RegisterFundraiser(Fundraiser fundraiser)
