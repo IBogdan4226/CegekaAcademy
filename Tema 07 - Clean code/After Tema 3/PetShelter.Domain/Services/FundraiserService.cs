@@ -19,7 +19,7 @@ namespace PetShelter.Domain.Services
         private readonly IDonationRepository _donationRepository;
         private readonly IPersonRepository _personRepository;
 
-        public FundraiserService(IFundraiserRepository fundraiserRepository,IDonationRepository donationRepository, IPersonRepository personRepository)
+        public FundraiserService(IFundraiserRepository fundraiserRepository, IDonationRepository donationRepository, IPersonRepository personRepository)
         {
             _fundraiserRepository = fundraiserRepository;
             _donationRepository = donationRepository;
@@ -29,9 +29,9 @@ namespace PetShelter.Domain.Services
         public async Task<int> CreateFundraiser(Person owner, Fundraiser fundraiser)
         {
             var person = await _personRepository.GetOrAddPersonAsync(owner.FromDomainModel());
-            var fundraiserAdded = new DataAccessLayer.Models.Fundraiser(fundraiser.Name,fundraiser.Target, person.Id,fundraiser.DueDate)
+            var fundraiserAdded = new DataAccessLayer.Models.Fundraiser(fundraiser.Name, fundraiser.Target, person.Id, fundraiser.DueDate)
             {
-               Owner=person
+                Owner = person
             };
             await _fundraiserRepository.Add(fundraiserAdded);
             return fundraiserAdded.Id;
@@ -48,15 +48,15 @@ namespace PetShelter.Domain.Services
             var person = await _personRepository.GetOrAddPersonAsync(donation.Donor.FromDomainModel());
             donation.DonorId = person.Id;
 
-            var fundation=await _fundraiserRepository.DonateToFundraiser(fundraiserId, donation.Amount);
-            if(fundation == null)
+            var fundraiser = await _fundraiserRepository.DonateToFundraiser(fundraiserId, donation.Amount);
+            if (fundraiser == null)
             {
-                throw new NotFoundException("Foundation not found");
+                throw new NotFoundException("Fundraiser not found");
             }
-            await _donationRepository.Add(new DataAccessLayer.Models.Donation(donation.Amount, donation.DonorId,fundraiserId));
+            await _donationRepository.Add(new DataAccessLayer.Models.Donation(donation.Amount, donation.DonorId, fundraiserId));
         }
 
-        public async  Task<IReadOnlyCollection<Fundraiser>> GetAllFundraisers()
+        public async Task<IReadOnlyCollection<Fundraiser>> GetAllFundraisers()
         {
             var fundraisers = await _fundraiserRepository.GetAll();
             return fundraisers.Select(p => p.toDomainModel())
