@@ -35,7 +35,9 @@ export const Home = () => {
                 <Typography variant='body1'>
                     Found a stray pet on the street but cannot adopt it?
                 </Typography>
-                <Button variant="contained" color="success">
+                <Button variant="contained" color="success" onClick={()=>{
+                    navigate('/Pets/Rescue')
+                }}>
                     Rescue it!
                 </Button>
             </Box>
