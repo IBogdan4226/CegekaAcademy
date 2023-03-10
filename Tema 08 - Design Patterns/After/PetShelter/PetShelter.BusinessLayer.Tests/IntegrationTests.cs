@@ -5,6 +5,8 @@ using PetShelter.DataAccessLayer;
 using FluentAssertions;
 using PetShelter.BusinessLayer.ExternalServices;
 using System.Security.Cryptography;
+using PetShelter.BusinessLayer.Constants;
+using PetShelter.DataAccessLayer.BuilderDesignPattern;
 
 namespace PetShelter.BusinessLayer.Tests
 {
@@ -14,6 +16,7 @@ namespace PetShelter.BusinessLayer.Tests
         private IPetRepository _petRepositorySut;
         private IDonationRepository _donationRepository;
         private IIdNumberValidator _idNumberValidator;
+        private IPetBuilder petBuilder;
         public IntegrationTests()
         {
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<PetShelterContext>();
@@ -22,6 +25,7 @@ namespace PetShelter.BusinessLayer.Tests
             _petRepositorySut = new PetRepository(_petShelterContext);
             _donationRepository= new DonationRepository(_petShelterContext);
             _idNumberValidator = new IdNumberValidator(new HttpClient());
+            petBuilder = new PetBuilder();
         }
 
       
@@ -30,17 +34,16 @@ namespace PetShelter.BusinessLayer.Tests
         public async void GivenSavingAnPet_WhenGetPetByName_ReturnsPetInserted()
         {
             //Arrange 
-            const string? petName = "Bobita";
-            var _newPet = new Pet {
-                Name = petName,
-                Birthdate = DateTime.Now,
-                Description = "Bobita e catelul meu frumos!<3",
-                ImageUrl = "bobita.jpg",
-                IsHealthy = true,
-                IsSheltered = true,
-                WeightInKg = 6,
-                Type = "Dog"
-            };
+            const string petName = "Bobita";
+            var _newPet = petBuilder
+            .SetPetName(petName)
+            .SetDescription("A cute and cuddly dog")
+            .SetPetType("Dog")
+            .SetIsHealthy(true)
+            .SetWeightInKg(6.2m)
+            .SetImageUrl("https://publish.purewow.net/wp-content/uploads/sites/2/2021/07/big-dog-breeds-old-english-sheepdog.jpg?fit=728%2C524")
+            .Build();
+            
 
             //Act
             await _petRepositorySut.Add(_newPet);
@@ -58,21 +61,18 @@ namespace PetShelter.BusinessLayer.Tests
         public async void GivenSavingAnPet_WhenUpdatingThePet_ReturnsPetUpdated()
         {
             //Arrange 
-            const string? petName = "Bobita";
-            const string? newName = "Bobita1";
-            var _newPet = new Pet
-            {
-                Name = petName,
-                Birthdate = DateTime.Now,
-                Description = "Bobita e catelul meu frumos!<3",
-                ImageUrl = "bobita.jpg",
-                IsHealthy = true,
-                IsSheltered = true,
-                WeightInKg = 6,
-                Type = "Dog"
-            };
+            const string petName = "Bobita";
+            const string newName = "Bobita1";
+            var _newPet = petBuilder
+            .SetPetName(petName)
+            .SetDescription("A cute and cuddly dog")
+            .SetPetType("Dog")
+            .SetIsHealthy(true)
+            .SetWeightInKg(6.2m)
+            .SetImageUrl("https://publish.purewow.net/wp-content/uploads/sites/2/2021/07/big-dog-breeds-old-english-sheepdog.jpg?fit=728%2C524")
+            .Build();
 
-           
+
             //Act
             await _petRepositorySut.Add(_newPet);
 

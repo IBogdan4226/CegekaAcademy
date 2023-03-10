@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Moq;
+using PetShelter.BusinessLayer.BuilderDesignPattern;
 using PetShelter.BusinessLayer.ExternalServices;
 using PetShelter.BusinessLayer.Models;
 using PetShelter.BusinessLayer.Validators;
@@ -32,22 +33,10 @@ namespace PetShelter.BusinessLayer.Tests
         private void SetupHappyPath()
         {
             _mockIdNumberValidator.Setup(x => x.Validate(It.IsAny<string>())).ReturnsAsync(true);
+            var builder = new RescuePetBuilder();
+            var director = new RescuePetDirector(builder);
 
-            _request = new RescuePetRequest
-            {
-                PetName = "Max",
-                Type = Constants.PetType.Dog,
-                Description = "Nice dog",
-                IsHealthy = true,
-                ImageUrl = "test",
-                WeightInKg = 10,
-                Person = new BusinessLayer.Models.Person
-                {
-                    DateOfBirth = DateTime.Now.AddYears(-Constants.PersonConstants.AdultMinAge),
-                    IdNumber = "1111222233334",
-                    Name = "TestName"
-                }
-            };
+            _request = director.ConstructCuteCat();
         }
 
         [Fact]
